@@ -1,0 +1,28 @@
+service: sls3-testing
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  stackTags: ${self:provider.tags}
+  tags:
+    environment: ${env:myvar}
+    group: qa
+    service_name: sls-test
+    product_unit: none
+    product_component: none
+    owner: ccoe
+functions:
+  hello:
+    handler: src/handler.hello
+    events:
+    - http:
+        path: src/hello
+        method: get
+package:
+  patterns:
+  - '!tests/**'
+  - '!ci_tools/**'
+  - '!config/**'
+  - '!sonar-project.js'
+  - '!README.md'

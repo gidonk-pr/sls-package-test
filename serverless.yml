@@ -1,0 +1,3 @@
+service: not-the-real-name
+provider:
+  name: aws
